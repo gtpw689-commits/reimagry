@@ -1,23 +1,10 @@
-# Reimagry
+cat <<'EOF' > ~/reimagry/README.md
+# Reimagry Project
 
-Reimagry is a Termux-native AI processing framework designed to run
-reliably on Android without native Python compilation.
+This is a fully Termux-compatible GPT4All integration project.
 
-## Design Principles
+## Setup
 
-- Standard-library cryptography only
-- Deterministic hashing
-- No pip native extensions
-- Optional decentralised sync
-- GitHub used for coordination, not runtime dependency
-
-## Runtime
-
-- Platform: Termux (Android)
-- Python: 3.12+
-- Hashing: hashlib.blake2b
-- Imaging: Pillow (Termux package)
-
-## Status
-
-This repository represents a stable, reproducible baseline build.
+1. Run the setup script:
+   ```bash
+   ./setup.sh

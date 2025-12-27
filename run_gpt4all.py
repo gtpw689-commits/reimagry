@@ -1,6 +1,7 @@
 import os
 import requests
 
+# Make sure to set your token as an environment variable
 GITHUB_PAT = os.getenv("GITHUB_PAT")
 REPO = "gtpw689-commits/reimagry"
 WORKFLOW = "gpt4all.yml"

@@ -1,0 +1,47 @@
+name: GPT4All API
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Prompt for GPT4All'
+        required: true
+
+jobs:
+  gpt4all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install gpt4all requests
+
+      - name: Download model
+        run: |
+          mkdir -p models
+          # Replace the URL with the real GPT4All model download link
+          wget -O models/gpt4all-lora-quantized.bin "YOUR_MODEL_URL"
+
+      - name: Run GPT4All
+        id: run_gpt
+        run: |
+          python3 - <<PYTHON
+import json
+import os
+from gpt4all import GPT4All
+
+prompt = "${{ github.event.inputs.prompt }}"
+
+model_path = os.path.join(os.getcwd(), "models/gpt4all-lora-quantized.bin")
+model = GPT4All(model_path)
+
+response = model.generate(prompt)
+print(json.dumps({"response": response}))
+PYTHON
