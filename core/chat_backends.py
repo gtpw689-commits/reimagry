@@ -1,5 +1,8 @@
 import requests
 import time
+import os
+
+GITHUB_PAT = os.getenv("GITHUB_PAT")
 
 class GPT4AllBackend:
     def __init__(self, repo="gtpw689-commits/reimagry", workflow="gpt4all.yml", token=None):
