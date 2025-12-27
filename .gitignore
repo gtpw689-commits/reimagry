@@ -1,4 +1,7 @@
 __pycache__/
 *.pyc
-.env
-data/state.db
+*.pyo
+*.pyd
+.cache/
+.bash_history
+bfg.jar
