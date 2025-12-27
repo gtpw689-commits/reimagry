@@ -1,28 +1,18 @@
-import json
-from prompt_generator import generate_prompt
-from compute import compute_response
-
-STATE_FILE = "data/state.json"
-
-def load_state():
-    with open(STATE_FILE, "r") as f:
-        return json.load(f)
-
-def save_state(state):
-    with open(STATE_FILE, "w") as f:
-        json.dump(state, f, indent=2)
+from router import route
+from state import init_db, record_run
+from state_sign import sign_state
 
 def main():
-    state = load_state()
-    state["runs"] += 1
-    save_state(state)
+    init_db()
+    record_run()
 
     while True:
         user = input("reimagry> ")
         if user.lower() in ("exit", "quit"):
             break
-        prompt = generate_prompt(user)
-        print(compute_response(prompt))
+        result = route(user)
+        print(result)
+        print("state_signature:", sign_state())
 
 if __name__ == "__main__":
     main()
