@@ -2,7 +2,5 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.cache/
-.bash_history
-bfg.jar
-models/gpt4all-lora-quantized.bin
+models/
+.env

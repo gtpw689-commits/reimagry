@@ -1,18 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/python3
 import os
-import requests
+import json
+from gpt4all import GPT4All
 
-# Make sure to set your token as an environment variable
-GITHUB_PAT = os.getenv("GITHUB_PAT")
-REPO = "gtpw689-commits/reimagry"
-WORKFLOW = "gpt4all.yml"
-PROMPT = "Hello GPT4All"
+# Prompt input
+prompt = input("Enter prompt for GPT4All: ")
 
-url = f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW}/dispatches"
-headers = {
-    "Accept": "application/vnd.github+json",
-    "Authorization": f"token {GITHUB_PAT}"
-}
-data = {"ref": "main", "inputs": {"prompt": PROMPT}}
+# Path to your local GPT4All model
+model_path = os.path.join(os.getcwd(), "models/gpt4all-lora-quantized.bin")
+model = GPT4All(model_path)
 
-r = requests.post(url, json=data, headers=headers)
-print(r.status_code, r.text)
+# Generate response
+response = model.generate(prompt)
+print(json.dumps({"response": response}))

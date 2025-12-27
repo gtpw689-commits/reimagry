@@ -18,30 +18,10 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install gpt4all requests
-
-      - name: Download model
-        run: |
-          mkdir -p models
-          # Replace the URL with the real GPT4All model download link
-          wget -O models/gpt4all-lora-quantized.bin "YOUR_MODEL_URL"
+      - name: Install GPT4All
+        run: pip install gpt4all
 
       - name: Run GPT4All
         id: run_gpt
         run: |
-          python3 - <<PYTHON
-import json
-import os
-from gpt4all import GPT4All
-
-prompt = "${{ github.event.inputs.prompt }}"
-
-model_path = os.path.join(os.getcwd(), "models/gpt4all-lora-quantized.bin")
-model = GPT4All(model_path)
-
-response = model.generate(prompt)
-print(json.dumps({"response": response}))
-PYTHON
+          python3 run_gpt4all.py <<< "${{ github.event.inputs.prompt }}"
