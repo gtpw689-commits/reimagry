@@ -1,9 +1,5 @@
-import sys
-import hashlib
+import sys, hashlib, sqlite3
 
-def main():
-    print("Python:", sys.version)
-    print("Blake2b OK:", hashlib.blake2b(b"test").hexdigest())
-
-if __name__ == "__main__":
-    main()
+print("Python OK:", sys.version)
+print("Hash OK:", hashlib.blake2b(b"x").hexdigest())
+print("SQLite OK:", sqlite3.sqlite_version)

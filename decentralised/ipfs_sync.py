@@ -1,7 +1,8 @@
-def publish(path: str):
+import subprocess
+
+def publish(path="data"):
     try:
-        import subprocess
-        result = subprocess.check_output(["ipfs", "add", "-r", path])
-        print(result.decode())
+        out = subprocess.check_output(["ipfs", "add", "-r", path])
+        return out.decode()
     except FileNotFoundError:
-        raise RuntimeError("ipfs binary not installed")
+        return "ipfs not installed"
